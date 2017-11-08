@@ -1,4 +1,6 @@
-## A GraphQL Server
+## GraphQl Server for ReactJS project with Apollo-Client
+
+(work in progress)
 
 
 npm install
