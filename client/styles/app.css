@@ -1,0 +1,436 @@
+body {
+  margin:0;
+  color: rgb(0, 56, 108);
+  font-family: 'Segment Circular Std','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+p {
+  font: 16px/27px Segment Circular Std,Helvetica Neue,Helvetica,Arial,sans-serif;
+  color: #425e78;
+}
+a {
+  color: #49B882;
+  text-decoration: none;
+  transition: color .2s ease-in;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 27px;
+  cursor: pointer;
+}
+a:hover {
+  color: rgba(73, 184, 130, 0.74);
+}
+
+.site-logo {
+  width: 50px;
+}
+
+.page-content-image {
+  margin-left: auto;
+  display: block;
+  margin-right: auto;
+  max-width: 100%;
+}
+.body-content {
+  min-height: 80vh;
+  margin-top: 100px;
+}
+.body-margin {
+  margin: 20px auto;
+  max-width: 960px;
+}
+.block-content {
+  margin: 20px auto;
+  max-width: 960px;
+  padding: 75px 0;
+  display: flex;
+}
+.block-text {
+  text-align: justify;
+}
+.block > .block-content {
+  padding: 0;
+  padding-bottom: 75px;
+}
+
+.block-title {
+  text-align: center;
+  padding-top: 75px;
+  margin: 20px auto;
+  max-width: 960px;
+}
+
+.bg-secondary {
+  background: #f7f6f5;
+}
+
+.bg-tertiary {
+  background: #00386c;
+  color: #fff;
+}
+.bg-tertiary p, .bg-tertiary a {
+  color: #fff;
+}
+
+.hero-text-1 {
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 66px;
+}
+
+.hero-text-2 {
+  font-size: 27px;
+  line-height: 40px;
+  font-weight: 500;
+}
+
+.hero-text-3 {
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 55px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+h2 {
+  font-size: 35px;
+  line-height: 45px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+h3 {
+  text-align: center;
+  font-size: 27px;
+  font-weight: 500;
+  text-transform: capitalize;
+  line-height: 37px;
+}
+
+.show-sm {
+  display: none !important;
+}
+
+.responsive-footer-internal {
+  display: flex;
+}
+
+.resposive-align-right-center {
+  text-align: right;
+}
+
+.resposive-align-left-center {
+  text-align: left;
+}
+
+.resposive-align {
+  text-align: center;
+}
+
+.block-video-content {
+  position: relative;
+  min-height: 740px;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+  max-width: none;
+}
+
+.block-video {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.block-image {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.m0 {
+  margin: 0px;
+}
+.m10 {
+  margin: 10px;
+}
+.m25 {
+  margin: 25px;
+}
+.m50 {
+  margin: 50px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+.mt25 {
+  margin-top: 25px;
+}
+.mt50 {
+  margin-top: 50px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+.mb25 {
+  margin-bottom: 25px;
+}
+.mb50 {
+  margin-bottom: 50px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+.ml25 {
+  margin-left: 25px;
+}
+.ml50 {
+  margin-left: 50px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+.mr25 {
+  margin-right: 25px;
+}
+.mr50 {
+  margin-right: 50px;
+}
+
+.p0 {
+  padding: 0px;
+}
+.p10 {
+  padding: 10px;
+}
+.p25 {
+  padding: 25px;
+}
+.p50 {
+  padding: 50px;
+}
+
+.pt10 {
+  padding-top: 10px;
+}
+.pt25 {
+  padding-top: 25px;
+}
+.pt50 {
+  padding-top: 50px;
+}
+
+.pb10 {
+  padding-bottom: 10px;
+}
+.pb25 {
+  padding-bottom: 25px;
+}
+.pb50 {
+  padding-bottom: 50px;
+}
+
+.pl10 {
+  padding-left: 10px;
+}
+.pl25 {
+  padding-left: 25px;
+}
+.pl50 {
+  padding-left: 50px;
+}
+
+.pr10 {
+  padding-right: 10px;
+}
+.pr25 {
+  padding-right: 25px;
+}
+.pr50 {
+  padding-right: 50px;
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 500px) {
+  .hide-sm {
+    display: none !important;
+  }
+  .show-sm {
+    display: inline-block !important;
+  }
+  .block-video-content {
+    min-height: 500px;
+  }
+  .body-margin {
+    margin: 20px !important;
+  }
+  .block-content {
+    margin: 20px !important;
+  }
+  .responsive-footer-internal {
+    display: block !important;
+  }
+  .resposive-align-right-center, .resposive-align-left-center, .resposive-align {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .hero-text-1 {
+    font-size: 50px !important;
+    font-weight: 500 !important;
+    line-height: 55px !important;
+  }
+
+  .hero-text-2 {
+    font-size: 22px !important;
+    line-height: 32px !important;
+    font-weight: 400 !important;
+  }
+
+  .hero-text-3 {
+    font-size: 17px !important;
+    line-height: 27px !important;
+    font-weight: 400 !important;
+  }
+
+  h1 {
+    font-size: 35px !important;
+    line-height: 45px !important;
+    font-weight: 500 !important;
+  }
+
+  h2 {
+    font-size: 30px !important;
+    line-height: 37px !important;
+    font-weight: 400 !important;
+  }
+
+  h3 {
+    font-size: 22px !important;
+    font-weight: 400 !important;
+    line-height: 30px !important;
+  }
+
+  p {
+    font: 13px/22px Segment Circular Std,Helvetica Neue,Helvetica,Arial,sans-serif !important;
+    color: #425e78 !important;
+  }
+
+  a {
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    line-height: 22px !important;
+  }
+
+  .block-content {
+    padding: 50px 0 !important;
+    display: block !important;
+  }
+  .block-content > div {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin-bottom: 30px;
+  }
+  .block > .block-content {
+    padding: 0;
+    padding-bottom: 50px !important;
+  }
+
+  .block-title {
+    padding-top: 50px !important;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .hero-text-1 {
+    font-size: 40px !important;
+    font-weight: 400 !important;
+    line-height: 44px !important;
+  }
+
+  .hero-text-2 {
+    font-size: 17px !important;
+    line-height: 27px !important;
+    font-weight: 300 !important;
+  }
+
+  .hero-text-3 {
+    font-size: 12px !important;
+    line-height: 20px !important;
+    font-weight: 300 !important;
+  }
+
+  h1 {
+    font-size: 30px !important;
+    line-height: 37px !important;
+    font-weight: 400 !important;
+  }
+
+  h2 {
+    font-size: 25px !important;
+    line-height: 30px !important;
+    font-weight: 300 !important;
+  }
+
+  h3 {
+    font-size: 17px !important;
+    font-weight: 300 !important;
+    line-height: 25px !important;
+  }
+
+  p {
+    font: 10px/17px Segment Circular Std,Helvetica Neue,Helvetica,Arial,sans-serif !important;
+    color: #425e78 !important;
+  }
+
+  a {
+    font-weight: 400 !important;
+    font-size: 10px !important;
+    line-height: 17px !important;
+  }
+
+  .block-content {
+    padding: 50px 0 !important;
+    display: block !important;
+  }
+  .block-content > div {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin-bottom: 15px;
+  }
+  .block > .block-content {
+    padding: 0;
+    padding-bottom: 50px !important;
+  }
+
+  .block-title {
+    padding-top: 50px !important;
+  }
+}

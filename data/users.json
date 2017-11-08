@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "Super User",
+    "email": "superuser@suventure.in",
+    "password": "password",
+    "isAdmin": true,
+    "isAuthor": true,
+    "isRecruiter": true,
+    "isSuperUser": true,
+    "isActivated": true
+  },
+  {
+    "id": 2,
+    "name": "Test User",
+    "email": "testuser@suventure.in",
+    "password": "password",
+    "isAdmin": false,
+    "isAuthor": false,
+    "isRecruiter": false,
+    "isSuperUser": false,
+    "isActivated": true
+  }
+]

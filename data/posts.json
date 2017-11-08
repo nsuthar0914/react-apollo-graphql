@@ -1,0 +1,20 @@
+[
+  {
+    "id":1,
+    "title":"Testing 1",
+    "imageSource":"https://www.w3schools.com/w3images/fjords.jpg",
+    "postedDate":"December 23, 2016",
+    "author":1,
+    "category":"blog",
+    "content":"<p>Testing...</p>"
+  },
+  {
+    "id":2,
+    "title":"Testing 2",
+    "imageSource":"https://www.w3schools.com/w3images/fjords.jpg",
+    "postedDate":"December 23, 2016",
+    "author":1,
+    "category":"blog",
+    "content":"<p>Testing...</p>"
+  }
+]
