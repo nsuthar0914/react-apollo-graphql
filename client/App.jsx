@@ -8,20 +8,26 @@ import './styles/app.css';
 import Header from './components/layout/header.jsx';
 import Footer from './components/layout/footer.jsx';
 
-import {logout} from './actions/login.actions.js';
+import {
+    gql,
+    graphql,
+    compose,
+} from 'react-apollo';
 
 injectTapEventPlugin();
-class App extends React.Component{
+class App extends React.Component {
   logout() {
-    Promise.resolve(this.props.logout()).then(() => browserHistory.push('/'));
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    browserHistory.push('/');
   }
   render(){
-    const {user, pages} = this.props;
-    console.log(user)
+    const {data} = this.props;
+    const {loading, error, viewer} = data || {};
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
-          <Header viewer={user} pages={pages} logout={() => this.logout()}/>
+          <Header viewer={viewer || {}} logout={() => this.logout()}/>
           <div className="body-content">
             {this.props.children}
           </div>
@@ -32,32 +38,22 @@ class App extends React.Component{
   }
 }
 
-export default connect(
-  (state) => {
-    return {
-      user: state.login.get("user"),
-    };
-  },
-  (dispatch) => {
-    return {
-      logout: () => dispatch(logout()),
-    };
+export const viewerQuery = gql`
+  query ViewerQuery {
+    viewer {
+      id
+      name
+      email
+      isAdmin
+      isSuperUser
+      isActivated
+    }
   }
+`;
+
+export default compose(
+  graphql(viewerQuery, {
+    skip: () => !localStorage.getItem('token'),
+    options: { pollInterval: 5000 },
+  }),
 )(App);
-
-
-
-
-// export var App = Relay.createContainer(
-//   _App,
-//   {
-//     fragments: {
-//       viewer: () => Relay.QL`
-//         fragment on User {
-//           name
-//           email
-//         }
-//       `,
-//     },
-//   },
-// )

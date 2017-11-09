@@ -7,7 +7,11 @@ import TextField from 'material-ui/TextField';
 import {browserHistory} from 'react-router';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import {login} from '../actions/login.actions';
+import {
+    gql,
+    graphql,
+    compose,
+} from 'react-apollo';
 
 import AlertDialog from '../components/AlertDialog.jsx';
 
@@ -51,12 +55,13 @@ class Login extends React.Component {
 
   handleLogin(e){
     e.preventDefault();
-    let dataStr = `email: "${this.state.email}", password: "${this.state.password}"`;
-    this.props.login(`mutation{login(input: {${dataStr}}){viewer{id, name, email, token
-              isAdmin
-              isSuperUser
-              isActivated}}}`).then((success) => {
-      const {email, token, isRecruiter, isAuthor, isAdmin, isSuperUser, isActivated} = success.login.viewer;
+    this.props.login({ 
+      variables: {
+        email: this.state.email,
+        password: this.state.password,
+      },
+    }).then((success) => {
+      const {email, token, isRecruiter, isAuthor, isAdmin, isSuperUser, isActivated} = success.data.login.viewer;
       
       if (email) {
         if (isActivated) {
@@ -65,6 +70,7 @@ class Login extends React.Component {
               message: "Please check your inbox for password-rest link."
             });
           } else if (token) {
+            localStorage.setItem('token', token);
             browserHistory.push('/');
           }
         } else {
@@ -155,36 +161,25 @@ class Login extends React.Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return {
-      user: state.login.get("user"),
-      fetching: state.login.get("fetching"),
-    };
-  },
-  (dispatch) => {
-    return {
-      login: (payload) => dispatch(login(payload))
-    };
+const loginMutation = gql`
+  mutation loginMutation (
+    $email: String!
+    $password: String!
+  ) {
+    login (input: {email: $email, password: $password}) {
+      viewer {
+        id
+        name
+        email
+        token
+        isAdmin
+        isSuperUser
+        isActivated
+      }
+    }
   }
-)(Login);
+`;
 
-// export var Login = Relay.createContainer(
-//   _Login,
-//   {
-//     fragments: {
-//       viewer: () => Relay.QL`
-//         fragment on User {
-//           id
-//           email
-//           name
-//           token
-//           isSuperUser
-//           isRecruiter
-//           isAuthor
-//           isAdmin
-//         }
-//       `,
-//     },
-//   },
-// )
+export default compose(
+  graphql(loginMutation, {name: 'login'}),
+)(Login);

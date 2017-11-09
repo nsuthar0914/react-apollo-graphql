@@ -5,10 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {browserHistory} from 'react-router'
 
-import {activation} from '../actions/login.actions';
 
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import CircularProgress from 'material-ui/CircularProgress';
+
+import {
+    gql,
+    graphql,
+    compose,
+} from 'react-apollo';
 
 const styles={
   paper:{
@@ -40,12 +45,17 @@ class Activation extends React.Component {
     const {viewer, params: {email, token}} = this.props;
 
     let dataStr = `email: "${email}", token: "${token}"`;
-    this.props.activation(`mutation{activation(input: {${dataStr}}){viewer{id, name, email, isActivated}}}`).then((success) => {
-      if (success.activation && success.activation.viewer.isActivated) {
+    this.props.activation({ 
+      variables: {
+        email: email,
+        token: token,
+      },
+    }).then((success) => {
+      if (success.data.activation && success.data.activation.viewer.isActivated) {
         this.setState({
           activating: false,
         });
-      } else if (success.activation && !success.activation.viewer.isActivated) {
+      } else if (success.data.activation && !success.data.activation.viewer.isActivated) {
         this.setState({
           activating: false,
           error: 'Could not activate. Try again later'
@@ -97,15 +107,25 @@ class Activation extends React.Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return {
-      user: state.login.get("user"),
-    };
-  },
-  (dispatch) => {
-    return {
-      activation: (payload) => dispatch(activation(payload))
-    };
+const activationMutation = gql`
+  mutation activationMutation (
+    $email: String!
+    $token: String!
+  ) {
+    activation (input: {email: $email, token: $token}) {
+      viewer {
+        id
+        name
+        email
+        token
+        isAdmin
+        isSuperUser
+        isActivated
+      }
+    }
   }
+`;
+
+export default compose(
+  graphql(activationMutation, {name: 'activation'}),
 )(Activation);

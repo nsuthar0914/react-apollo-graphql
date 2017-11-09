@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute  } from 'react-router';
+import { Route, IndexRoute, browserHistory  } from 'react-router';
 
 import App from './App';
 
@@ -12,13 +12,10 @@ import Login from './containers/SignIn';
 import SignUp from './containers/SignUp';
 import Activation from './containers/Activation';
 
-export default function (store) {
-  function requireAuth(nextState, replace) {
-    if (!store.getState().login.get('user').email) {
-      replace({
-        pathname: '/signin',
-        state: { nextPathname: nextState.location.pathname }
-      })
+export default function () {
+  function requireAuth() {
+    if (!localStorage.getItem('token')) {
+      browserHistory.push('/signin');
     }
   }
   return (

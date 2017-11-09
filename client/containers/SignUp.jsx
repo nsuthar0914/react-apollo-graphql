@@ -7,7 +7,11 @@ import TextField from 'material-ui/TextField';
 import {browserHistory} from 'react-router'
 import CircularProgress from 'material-ui/CircularProgress';
 
-import {signup} from '../actions/login.actions';
+import {
+    gql,
+    graphql,
+    compose,
+} from 'react-apollo';
 
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 
@@ -49,15 +53,22 @@ class SignUp extends React.Component {
     let dataStr = `email: "${this.state.email}", password: "${this.state.password}"`;
     if (this.state.name) dataStr += `, name: "${this.state.name}"`
     if (this.state.token) dataStr += `, token: "${this.state.token}"`
-    this.props.signup(`mutation{signup(input: {${dataStr}}){viewer{id, name, email, isActivated}}}`).then((success) => {
-      if (success.signup && success.signup.viewer.isActivated) {
+    this.props.signup({ 
+      variables: {
+        email: this.state.email,
+        password: this.state.password,
+        name: this.state.name,
+        token: this.state.token,
+      },
+    }).then((success) => {
+      if (success.data.signup && success.data.signup.viewer.isActivated) {
         this.confirm.openDialog({
           message: (this.state.token
             ? 'Password Changed. Please proceed to login.'
             : 'You are already activated. Please proceed to login.'),
           handleConfirm: () => browserHistory.push('/signin')
         });
-      } else if (success.signup && !success.signup.viewer.isActivated) {
+      } else if (success.data.signup && !success.data.signup.viewer.isActivated) {
         this.confirm.openDialog({
           message: (this.state.token
             ? 'Please check your inbox to re-activate your account.'
@@ -132,32 +143,25 @@ class SignUp extends React.Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return {
-      user: state.login.get("user"),
-      fetching: state.login.get("fetching"),
-    };
-  },
-  (dispatch) => {
-    return {
-      signup: (payload) => dispatch(signup(payload))
-    };
+const signupMutation = gql`
+  mutation signupMutation (
+    $email: String!
+    $password: String!
+  ) {
+    signup (input: {email: $email, password: $password}) {
+      viewer {
+        id
+        name
+        email
+        token
+        isAdmin
+        isSuperUser
+        isActivated
+      }
+    }
   }
-)(SignUp);
+`;
 
-// export var SignUp = Relay.createContainer(
-//   _SignUp,
-//   {
-//     fragments: {
-//       viewer: () => Relay.QL`
-//         fragment on User {
-//           id
-//           email
-//           name
-//           token
-//         }
-//       `,
-//     },
-//   },
-// )
+export default compose(
+  graphql(signupMutation, {name: 'signup'}),
+)(SignUp);
