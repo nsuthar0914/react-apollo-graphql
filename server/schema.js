@@ -83,8 +83,8 @@ const getTokenFromEmail = function(email) {
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-      user: 'neerajs@suventure.in', // Your email id
-      pass: 'swastik123456' // Your password
+      user:  // Your email id
+      pass:  // Your password
   }
 });
 
